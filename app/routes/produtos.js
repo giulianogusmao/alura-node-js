@@ -1,8 +1,6 @@
-const connectionFactory = require('../infra/connectionFactory');
-
 module.exports = (app) => {
     return app.get('/produtos', (req, res) => {
-        const connection = connectionFactory();
+        const connection = app.infra.connectionFactory();
 
         connection.query('select * from livros', (err, result) => {
             err && console.error(err);
