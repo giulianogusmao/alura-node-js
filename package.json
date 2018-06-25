@@ -1,0 +1,23 @@
+{
+  "name": "modulo-1-node",
+  "version": "1.0.0",
+  "description": "* Modulo I - Curso de node js Alura - Inovando com Javascript no backend",
+  "main": "produtos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giulianogusmao/alura-node-js.git"
+  },
+  "author": "giuliano/alberto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giulianogusmao/alura-node-js/issues"
+  },
+  "homepage": "https://github.com/giulianogusmao/alura-node-js#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
