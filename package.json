@@ -4,6 +4,7 @@
   "description": "* Modulo I - Curso de node js Alura - Inovando com Javascript no backend",
   "main": "produtos.js",
   "scripts": {
+    "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }
