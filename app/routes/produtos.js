@@ -24,11 +24,20 @@ module.exports = (app) => {
     });
 
     app.get(`${route}/form`, (req, res) => {
-        res.render(`${name}/form`);
+        res.render(`${name}/form`, { errosValidacao: {} });
     });
 
     app.post(`${route}`, (req, res) => {
         const produto = req.body;
+
+        // valida dados antes de realizar o cadastro
+        req.assert('titulo', 'Titulo é obrigatório').notEmpty();
+        const erros = req.validationErrors();
+
+        if (erros) {
+            res.render(`${name}/form`, { errosValidacao: erros });
+            return;
+        }
 
         const connection = app.infra.connectionFactory();
         const produtosDAO = new app.infra.produtosDAO(connection);

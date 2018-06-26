@@ -4,6 +4,7 @@
 const express = require('express');
 const load = require('consign');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 
 module.exports = () => {
     const app = express();
@@ -16,6 +17,9 @@ module.exports = () => {
 
     // carregamento dos dados recebidos em json
     app.use(bodyParser.json());
+
+    // validando dados do cadastro
+    app.use(expressValidator());
 
     load({ cwd: 'app' })
         .include('infra')
