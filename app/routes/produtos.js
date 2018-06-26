@@ -8,7 +8,16 @@ module.exports = (app) => {
         
         produtosDAO.lista((err, result) => {
             err && console.error(err);
-            res.render(`${name}/lista`, { produtos: (result || []) });
+            const produtos = { produtos: (result || []) };
+
+            res.format({
+                html: function () {
+                    res.render(`${name}/lista`, produtos);
+                },
+                json: function () {
+                    res.json(produtos);
+                }
+            });
         });
 
         connection.end();
@@ -18,7 +27,7 @@ module.exports = (app) => {
         res.render(`${name}/form`);
     });
 
-    app.post(`${route}/salva`, (req, res) => {
+    app.post(`${route}`, (req, res) => {
         const produto = req.body;
 
         const connection = app.infra.connectionFactory();
