@@ -1,62 +1,25 @@
-var http = require('http');
+const Produtos = require('./Produtos.model');
+const produtos = new Produtos();
 
-class Produtos {
-    constructor() {
-        this._host = 'localhost';
-        this._port = 3000;
-    }
+produtos.lista((res)=> {
+    console.log('========= lista =========');
+    console.log(res.statusCode);
+    res.on('data', function (body) {
+        console.log('Corpo: ' + body);
+    });
+});
 
-    lista() {
-        var configuracoes = {
-            hostname: this._host,
-            port: this._port,
-            path: '/produtos',
-            headers: {
-                'Accept': 'application/json'
-            }
-        };
-
-        return http.get(configuracoes, function (res) {
-            console.log('========= lista =========');
-            console.log(res.statusCode);
-            res.on('data', function (body) {
-                console.log('Corpo: ' + body);
-            });
-        });
-    }
-
-    salva(produto) {
-        var configuracoes = {
-            hostname: this._host,
-            port: this._port,
-            path: '/produtos/form',
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            }
-        };
-
-        var envia = http.request(configuracoes, function (res) {
-            console.log('========= cadastra =========');
-            console.log(res.statusCode);
-            res.on('data', function (body) {
-                console.log('Corpo: ' + body);
-                // this.lista();
-            });
-        });
-
-        envia.end(JSON.stringify(produto));
-    }
-};
-
-
-var produto = new Produtos();
-produto.lista();
-
-produto.salva({
+const livro = {
     titulo: '',
     descricao: 'Livro top da casadocodigo',
     preco: 48.3
-});
+};
 
+produtos.salva(livro, (res) => {
+    console.log('========= cadastra =========');
+    console.log(res.statusCode);
+    res.on('data', function (body) {
+        console.log('Corpo: ' + body);
+        // this.lista();
+    });
+});
