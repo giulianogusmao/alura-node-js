@@ -5,18 +5,14 @@ module.exports = (app) => {
     app.get(`${route}`, (req, res) => {
         const connection = app.infra.connectionFactory();
         const produtosDAO = new app.infra.produtosDAO(connection);
-        
+
         produtosDAO.lista((err, result) => {
             err && console.error(err);
             const produtos = { produtos: (result || []) };
 
             res.format({
-                html: function () {
-                    res.render(`${name}/lista`, produtos);
-                },
-                json: function () {
-                    res.json(produtos);
-                }
+                html: () => res.render(`${name}/lista`, produtos),
+                json: () => res.json(produtos)
             });
         });
 
@@ -24,10 +20,10 @@ module.exports = (app) => {
     });
 
     app.get(`${route}/form`, (req, res) => {
-        res.render(`${name}/form`, { errosValidacao: {} });
+        res.render(`${name}/form`, { errosValidacao: {}, produto: {} });
     });
 
-    app.post(`${route}`, (req, res) => {
+    app.post(`${route}/form`, (req, res) => {
         const produto = req.body;
 
         // valida dados antes de realizar o cadastro
@@ -35,8 +31,12 @@ module.exports = (app) => {
         const erros = req.validationErrors();
 
         if (erros) {
-            res.render(`${name}/form`, { errosValidacao: erros });
-            return;
+            const response = { errosValidacao: erros, produto };
+            res.format({
+                html: () => res.status(400).render(`${name}/form`, response),
+                json: () => res.status(400).json(response)
+            });
+            return false;
         }
 
         const connection = app.infra.connectionFactory();
@@ -44,7 +44,12 @@ module.exports = (app) => {
 
         produtosDAO.salva(produto, (err, result) => {
             err && console.error(err);
-            res.redirect(`${route}`);
+
+            res.format({
+                html: () =>  res.redirect(`${route}`),
+                json: () => res.json(result)
+            });
+
         });
 
         connection.end();

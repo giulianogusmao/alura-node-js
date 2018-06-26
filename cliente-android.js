@@ -17,7 +17,8 @@ class Produtos {
         };
 
         return http.get(configuracoes, function (res) {
-            // console.log(res.statusCode);
+            console.log('========= lista =========');
+            console.log(res.statusCode);
             res.on('data', function (body) {
                 console.log('Corpo: ' + body);
             });
@@ -28,7 +29,7 @@ class Produtos {
         var configuracoes = {
             hostname: this._host,
             port: this._port,
-            path: '/produtos',
+            path: '/produtos/form',
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -37,10 +38,11 @@ class Produtos {
         };
 
         var envia = http.request(configuracoes, function (res) {
+            console.log('========= cadastra =========');
             console.log(res.statusCode);
             res.on('data', function (body) {
                 console.log('Corpo: ' + body);
-                this.lista();
+                // this.lista();
             });
         });
 
@@ -53,7 +55,7 @@ var produto = new Produtos();
 produto.lista();
 
 produto.salva({
-    titulo: 'Novo livro de Nodejs',
+    titulo: '',
     descricao: 'Livro top da casadocodigo',
     preco: 48.3
 });
