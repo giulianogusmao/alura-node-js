@@ -1,18 +1,17 @@
 const Produto = require('../Produtos.model');
+const assert = require('assert');
 
 describe('#ProdutosController', () => {
-    it('#listagem json', (fnFinalizacao) => {
+    it('#listagem de produtos json', (done) => {
         new Produto().lista((res) => {
-            if (res.statusCode == 200) {
-                console.log(" - Status ta ok");
-            }
+            // verifica se foi retornado o status 200
+            assert.equal(res.statusCode, 200);
 
-            if (res.headers['content-type'] == 'application/json; charset=utf-8') {
-                console.log(" - Content type ok");
-            }
+            // verifica se o content-type foi no formato json
+            assert.equal(res.headers['content-type'], 'application/json; charset=utf-8');
 
             // notifica o mocha que o callback foi finalizado
-            fnFinalizacao();
+            done();
         });
     });
 });
