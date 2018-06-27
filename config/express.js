@@ -28,5 +28,20 @@ module.exports = () => {
         .then('routes')
         .into(app);
 
+    // criando um middleware para validar a url acessada
+    app.use((req, res, next) => {
+        res.status(404).render('erros/404');
+        next();
+    });
+
+    // criando um middleware para verificar se houve algum erro
+    app.use((error, req, res, next) => {
+        if (process.env.NODE_ENV == 'production') {
+            res.status(500).render('error/500');
+            return;
+        }
+        next(error);
+    });
+
     return app;
 }

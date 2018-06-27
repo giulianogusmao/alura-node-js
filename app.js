@@ -1,6 +1,8 @@
 const app = require('./config/express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+// disponibilizando a variavel io
 app.set('io', io);
 
 http.listen(3000, () => {
