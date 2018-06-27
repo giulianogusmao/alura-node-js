@@ -12,6 +12,8 @@ module.exports = () => {
     app.set('view engine', 'ejs');
     app.set('views', './app/views');
 
+    app.use(express.static('./app/public'));
+
     // carregamento dos dados recebidos do formulário
     app.use(bodyParser.urlencoded({ extended: true }));
 

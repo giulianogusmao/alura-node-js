@@ -6,7 +6,7 @@ const createDBConnection = () => {
             host: 'localhost',
             user: 'root',
             password: '',
-            database: 'alura_node_test'
+            database: 'alura_node'
         });
     }
 
