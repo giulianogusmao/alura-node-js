@@ -1,7 +1,13 @@
-var express = require('../config/express')();
-var request = require('supertest')(express);
+var app = require('../config/express')();
+var request = require('supertest')(app);
 
 describe('#ProdutosController', () => {
+
+    beforeEach((done) => {
+        app.infra.connectionFactory().query('delete from livros', (err, res) => {
+            !err && done();
+        });
+    });
 
     it('#listagem de produtos json', (done) => {
         request.get('/produtos')
