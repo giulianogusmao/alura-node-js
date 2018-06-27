@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    app.get('/', (req, res, next) => {
+    app.get('/promocoes/form', (req, res, next) => {
         const connection = app.infra.connectionFactory();
         const produtosDAO = new app.infra.produtosDAO(connection);
 
@@ -9,9 +9,16 @@ module.exports = (app) => {
                 return next(err);
             }
 
-            res.render('home/index', { livros: (result || []) });
+            console.log(result);
+            res.render('promocoes/form', { lista: (result || []) });
         });
 
         connection.end();
+    });
+
+    app.post('/promocoes', (req, res, next) => {
+        const livro = req.body;
+        console.log(livro);
+        res.redirect('/promocoes/form');
     });
 }
