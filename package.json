@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "* Modulo I - Curso de node js Alura - Inovando com Javascript no backend",
   "main": "app.js",
+  "engines": {
+    "node": "8.11.2"
+  },
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app",
+    "start-dev": "nodemon app.js",
     "test": "mocha test --env NODE_ENV=test"
   },
   "repository": {

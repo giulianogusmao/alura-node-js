@@ -5,6 +5,8 @@ const io = require('socket.io')(http);
 // disponibilizando a variavel io
 app.set('io', io);
 
-http.listen(3000, () => {
-    console.log("servidor rodando");
+const porta = process.env.PORT || 3000;
+
+http.listen(porta, () => {
+    console.log("servidor rodando no heroku");
 });
